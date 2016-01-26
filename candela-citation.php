@@ -1,9 +1,9 @@
 <?php
 /**
  * @wordpress-plugin
- * Plugin Name:       Candela Citations
- * Description:       Citations for Candela
- * Version:           0.1
+ * Plugin Name:       Candela Attributions
+ * Description:       Creative Commons Attributions for Candela
+ * Version:           0.2
  * Author:            Lumen Learning
  * Author URI:        http://lumenlearning.com
  * Text Domain:       lti
@@ -87,7 +87,7 @@ class CandelaCitation {
   public static function add_meta_boxes() {
     $types = CandelaCitation::postTypes();
     foreach ( $types as $type ) {
-      add_meta_box('citations', 'Citations', array( __CLASS__, 'add_citation_meta' ), $type, 'normal' );
+      add_meta_box('citations', 'Attributions', array( __CLASS__, 'add_citation_meta' ), $type, 'normal' );
     }
   }
 
@@ -416,8 +416,8 @@ class CandelaCitation {
 
   public static function admin_menu() {
     add_options_page(
-      __('Candela Citations', 'candela-citation'),
-      __('Candela Citations', 'candela-citation'),
+      __('Candela Attributions', 'candela-citation'),
+      __('Candela Attributions', 'candela-citation'),
       'manage_options',
       'candela-citation',
       array(__CLASS__, 'global_citation_page')
@@ -439,20 +439,20 @@ class CandelaCitation {
     }
 
     print '<div class="wrap">';
-    print '<div>' . __('Global Citations', 'candela-citation') . '</div>';
+    print '<div>' . __('Global Attributions', 'candela-citation') . '</div>';
     print '<form method="POST" action="' . get_permalink() . '">';
     print '<input type="hidden" name="__citation" value="1" >';
 
     $rows[] = CandelaCitation::get_meta_row();
     CandelaCitation::citations_table( $rows );
 
-    print '<input type="submit" id="citation-add-all" name="citation-add-all" value="' .  __('Add citations to every page', 'candela-citation') . '">';
-    print '<input type="submit" id="citation-replace-all" name="citation-replace-all" value="' . __('OVERWRITE citations on every page', 'candela-citation') . '">';
+    print '<input type="submit" id="citation-add-all" name="citation-add-all" value="' .  __('Add attributions to every page', 'candela-citation') . '">';
+    print '<input type="submit" id="citation-replace-all" name="citation-replace-all" value="' . __('OVERWRITE attributions on every page', 'candela-citation') . '">';
 
     print "<script type=\"text/javascript\">
       jQuery( document ).ready( function( $ ) {
         $('#citation-add-all').click(function() {
-          if (!confirm(\"Are you sure you want to add citations to *every* page in this book?\")) {
+          if (!confirm(\"Are you sure you want to add attributions to *every* page in this book?\")) {
             return false;
           }
         });
@@ -462,7 +462,7 @@ class CandelaCitation {
     print "<script type=\"text/javascript\">
       jQuery( document ).ready( function( $ ) {
         $('#citation-replace-all').click(function() {
-          if (!confirm(\"Are you sure you want to replace all citations in *every* page in this book?\")) {
+          if (!confirm(\"Are you sure you want to replace all attributions in *every* page in this book?\")) {
             return false;
           }
         });
@@ -603,19 +603,19 @@ class CandelaCitation {
         $row[] = $field['label-html'] . '&nbsp;&nbsp;' .  $field['widget'];
       }
 
-      echo '<div class="postbox"><div class="handlediv" title="Click to toggle"><br /></div><div class="hndle">' . __('Citation') . '</div><div class="inside"><div class="custom-metadata-field text">';
+      echo '<div class="postbox"><div class="handlediv" title="Click to toggle"><br /></div><div class="hndle">' . __('Attribution') . '</div><div class="inside"><div class="custom-metadata-field text">';
       echo implode( '</div><div class="custom-metadata-field text">', str_replace('%%INDEX%%', $i, $row) );
       echo '</div></div></div>';
       $i++;
     }
     echo '</div>';
     echo '<button id="citation-add-more-button" type="button">';
-    _e('Add more citations');
+    _e('Add more attributions');
     echo '</button>';
     echo '<script type="text/javascript">
       jQuery( document ).ready( function( $ ) {
         var citationIndex = '. $i . ';
-        citationWidgets = \'<div class="postbox"><div class="handlediv" title="Click to toggle"><br /></div><div class="hndle">' . __('Citation') . '</div><div class="inside"><div class="custom-metadata-field text">' . implode( '</div><div class="custom-metadata-field text">', $row ) . '</div></div></div>\';
+        citationWidgets = \'<div class="postbox"><div class="handlediv" title="Click to toggle"><br /></div><div class="hndle">' . __('Attribution') . '</div><div class="inside"><div class="custom-metadata-field text">' . implode( '</div><div class="custom-metadata-field text">', $row ) . '</div></div></div>\';
         $( "#citation-add-more-button" ).click(function() {
           newWidgets = citationWidgets.split("%%INDEX%%").join(citationIndex);
           $( "#citation-table").append(newWidgets);
