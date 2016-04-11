@@ -270,8 +270,9 @@ class CandelaCitation {
           );
           break;
         default:
+          $regex = '[^&quot;&#x5C;&#x5C;]+';
           $row[$key] = array(
-            'widget' => '<input name="' . $id . '" id="' . $id . '" type="' . $widget['type'] . '" value="' . esc_attr( $widget['value'] ) . '" pattern="[^\x22]+"  title="Sorry, no quotes. Do not ask.">',
+            'widget' => '<input name="' . $id . '" id="' . $id . '" type="' . $widget['type'] . '" value="' . esc_attr( $widget['value'] ) .  '"pattern="' . $regex . '" title="Sorry, no quotes or backslashes.">',
             'label' => $widget['label'],
             'label-html' => '<label for="citation-' . esc_attr($key) . '[%%INDEX%%]">' . $widget['label'] . '</label>',
           );
