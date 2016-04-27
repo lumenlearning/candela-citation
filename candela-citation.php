@@ -35,6 +35,7 @@ class CandelaCitation {
     add_action( 'add_meta_boxes', array( __CLASS__, 'add_meta_boxes' ) );
     add_action( 'save_post', array( __CLASS__, 'save') );
     add_filter( 'pb_import_metakeys', array( __CLASS__, 'get_import_metakeys') );
+    add_filter( 'pb_append_html_to_export_page', array( __CLASS__, 'add_citations'), 10, 2 );
   }
 
   /**
@@ -50,7 +51,7 @@ class CandelaCitation {
   }
 
   /**
-   * Previously citaitons were stored as serialized values.
+   * Previously citations were stored as serialized values.
    */
   public static function update_to_json_encode() {
     // Get all post citation data and then update from serialize to json_encode
@@ -66,6 +67,15 @@ class CandelaCitation {
         update_post_meta( $post->ID, CANDELA_CITATION_FIELD, json_encode( $citations ) );
       }
     }
+  }
+
+  /**
+   * Return post content w/ appended citations content
+   */
+  public static function add_citations( $content, $post_id ) {
+
+    return $content .= \CandelaCitation::renderCitation( $post_id );
+
   }
 
   /**
