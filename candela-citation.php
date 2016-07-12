@@ -35,7 +35,9 @@ class CandelaCitation {
     add_action( 'add_meta_boxes', array( __CLASS__, 'add_meta_boxes' ) );
     add_action( 'save_post', array( __CLASS__, 'save') );
     add_filter( 'pb_import_metakeys', array( __CLASS__, 'get_import_metakeys') );
-    add_filter( 'pb_append_html_to_export_page', array( __CLASS__, 'add_citations'), 10, 2 );
+    add_filter( 'pb_append_front_matter_content', array( __CLASS__, 'add_citations'), 10, 2 );
+    add_filter( 'pb_append_chapter_content', array( __CLASS__, 'add_citations'), 10, 2 );
+    add_filter( 'pb_append_back_matter_content', array( __CLASS__, 'add_citations'), 10, 2 );
   }
 
   /**
@@ -176,10 +178,11 @@ class CandelaCitation {
       $types = CandelaCitation::getOptions('type');
       foreach ( $types as $type => $info ) {
         if ( ! empty( $grouped[$type] ) ) {
+          $output .= '<div class="licensing">';
           $output .= '<div class="license-attribution-dropdown-subheading">' . $info['label'] . '</div>';
           $output .= '<ul class="citation-list"><li>';
           $output .= implode('</li><li>', $grouped[$type] );
-          $output .= '</li></ul>';
+          $output .= '</li></ul></div>';
         }
       }
     }
