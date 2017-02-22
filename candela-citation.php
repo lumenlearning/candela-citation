@@ -175,16 +175,17 @@ class CandelaCitation {
 
     $output = '';
     if ( ! empty($grouped) ) {
+      $output .= '<div class="licensing">';
       $types = CandelaCitation::getOptions('type');
       foreach ( $types as $type => $info ) {
         if ( ! empty( $grouped[$type] ) ) {
-          $output .= '<div class="licensing">';
           $output .= '<div class="license-attribution-dropdown-subheading">' . $info['label'] . '</div>';
           $output .= '<ul class="citation-list"><li>';
           $output .= implode('</li><li>', $grouped[$type] );
-          $output .= '</li></ul></div>';
+          $output .= '</li></ul>';
         }
       }
+      $output .= '</div>';
     }
 
     return $output;
@@ -515,17 +516,35 @@ class CandelaCitation {
       if (!empty( $grouped ) ) {
         print '<div class="wrap"><table>';
         print '<thead><tr>';
-        foreach ($headers as $title) {
-          print '<th>' . $title . '</th>';
+
+        $order = array(
+          'title',
+          'license',
+          'license_terms',
+          'author',
+          'organization',
+          'url',
+          'project',
+          'type',
+          'description'
+        );
+
+        $new_header_order = array();
+        foreach ($order as $index) {
+          array_push($new_header_order, $headers[$index]);
+        }
+
+        foreach ($new_header_order as $title) {
+            print '<th>' . $title . '</th>';
         }
         print '</tr></thead>';
 
         print '<tbody>';
         foreach ( $grouped as $id => $citations) {
           foreach ( $citations as $type => $parts ) {
-            foreach ($parts as $row ) {
+            foreach ($parts as $row) {
               print '<tr>';
-              foreach ( array_keys($headers) as $field) {
+              foreach ( $order as $field) {
                 if (!empty($row[$field])) {
                   switch ($field) {
                     case 'url':
