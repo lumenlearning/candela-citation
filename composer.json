@@ -2,12 +2,26 @@
   "name": "lumenlearning/candela-citation",
   "description": "Extends creative commons attribution functionality",
   "type": "wordpress-plugin",
-  "version": "1.0.0",
+  "version": "0.2.2",
   "homepage": "https://github.com/lumenlearning/candela-citation",
-  "require-dev": {
-    "humanmade/coding-standards": "^0.2.1"
+  "authors": [
+    {
+      "name": "Lumen Learning",
+      "email": "dev@lumenlearning.com",
+      "homepage": "https://lumenlearning.com"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/lumenlearning/candela-citation/issues/",
+    "source": "https://github.com/lumenlearning/candela-citation/"
   },
-  "require": {},
+  "require-dev": {
+    "humanmade/coding-standards": "^0.2.2"
+  },
+  "require": {
+    "php": ">=5.6.0",
+    "composer/installers": "~1.0"
+  },
   "scripts": {
     "test": [
       "@standards"
