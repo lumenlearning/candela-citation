@@ -146,14 +146,14 @@ class Citation {
 					switch ( $field ) {
 						case 'license':
 							if ( ! empty( $license[ $citation[ $field ] ]['link'] ) ) {
-								$parts[] = $info['prefix'] . '<a rel="license" href="' . $license[ $citation[ $field ] ]['link'] . '">' . esc_html( $license[ $citation[ $field ] ]['label'] ) . '</a>' . $info['suffix'];
+								$parts[] = $info['prefix'] . '<a target="_blank" rel="license" href="' . $license[ $citation[ $field ] ]['link'] . '">' . esc_html( $license[ $citation[ $field ] ]['label'] ) . '</a>' . $info['suffix'];
 							} else {
 								$parts[] = $info['prefix'] . esc_html( $license[ $citation[ $field ] ]['label'] ) . $info['suffix'];
 							}
 							break;
 						case 'url':
 							if ( ! empty( $citation[ $field ] ) ) {
-								$parts[] = $info['prefix'] . '<a href="' . esc_url( $citation[ $field ] ) . '">' . esc_url( $citation[ $field ] ) . '</a>' . $info['suffix'];
+								$parts[] = $info['prefix'] . '<a target="_blank" href="' . esc_url( $citation[ $field ] ) . '">' . esc_url( $citation[ $field ] ) . '</a>' . $info['suffix'];
 							} else {
 								$parts[] = $info['prefix'] . esc_url( $citation[ $field ] ) . $info['suffix'];
 							}
