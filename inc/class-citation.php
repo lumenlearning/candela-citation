@@ -45,7 +45,7 @@ class Citation {
 	 */
 	public static function register_meta() {
 		foreach ( self::postTypes() as $post_type ) {
-			\register_meta(
+			register_meta(
 				'post',
 				CANDELA_CITATION_FIELD,
 				array(
