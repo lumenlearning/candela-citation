@@ -18,6 +18,7 @@ class Citation {
 	public static function init() {
 
 		self::update_db();
+		add_action( 'init', array( __CLASS__, 'register_meta' ) );
 		add_action( 'admin_menu', array( __CLASS__, 'admin_menu' ) );
 		add_action( 'add_meta_boxes', array( __CLASS__, 'add_meta_boxes' ) );
 		add_action( 'save_post', array( __CLASS__, 'save' ) );
@@ -40,6 +41,25 @@ class Citation {
 	}
 
 	/**
+	 * Register field for REST API
+	 */
+	public static function register_meta() {
+		foreach ( self::postTypes() as $post_type ) {
+			register_meta(
+				'post',
+				CANDELA_CITATION_FIELD,
+				array(
+					'object_subtype' => $post_type,
+					'show_in_rest' => true,
+					'single' => true,
+					'type' => 'string',
+					'description' => __( 'Citations for Candela', 'candela-citation' ),
+				)
+			);
+		}
+	}
+
+	/**
 	 * Previously citations were stored as serialized values.
 	 */
 	public static function update_to_json_encode() {
@@ -52,8 +72,10 @@ class Citation {
 			$posts = get_posts( array( 'post_type' => $type, 'post_status' => 'any', 'posts_per_page' => '-1' ) );
 			foreach ( $posts as $post ) {
 				$citations = get_post_meta( $post->ID, CANDELA_CITATION_FIELD, true );
-				$citations = unserialize( $citations );
-				update_post_meta( $post->ID, CANDELA_CITATION_FIELD, json_encode( $citations ) );
+				if ( is_serialized( $citations ) ) {
+					$citations = unserialize( $citations );
+					update_post_meta( $post->ID, CANDELA_CITATION_FIELD, json_encode( $citations ) );
+				}
 			}
 		}
 	}
