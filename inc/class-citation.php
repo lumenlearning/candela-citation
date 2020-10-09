@@ -173,12 +173,8 @@ class Citation {
 								$parts[] = $info['prefix'] . esc_html( $license[ $citation[ $field ] ]['label'] ) . $info['suffix'];
 							}
 							break;
-						case 'url':
-							if ( ! empty( $citation[ $field ] ) ) {
-								$parts[] = $info['prefix'] . '<a target="_blank" href="' . esc_url( $citation[ $field ] ) . '">' . esc_url( $citation[ $field ] ) . '</a>' . $info['suffix'];
-							} else {
+							case 'url':
 								$parts[] = $info['prefix'] . esc_url( $citation[ $field ] ) . $info['suffix'];
-							}
 							break;
 						default:
 							$parts[] = $info['prefix'] . esc_html( $citation[ $field ] ) . $info['suffix'];
@@ -239,7 +235,7 @@ class Citation {
 			'url'           => array(
 				'type'   => 'text',
 				'label'  => __( 'URL', 'candela-citation' ),
-				'prefix' => '<strong>' . __( 'Located at', 'candela-citation' ) . '</strong>: ',
+				'prefix' => '<strong>' . __( 'Retrieved from', 'candela-citation' ) . '</strong>: ',
 				'suffix' => '',
 			),
 			'project'       => array(
