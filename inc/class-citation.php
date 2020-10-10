@@ -354,11 +354,11 @@ class Citation {
 				$options = array(
 					'pd'          => array(
 						'label' => __( 'Public Domain: No Known Copyright', 'candela-citation' ),
-						'link'  => 'https://creativecommons.org/about/pdm',
+						'link'  => 'https://creativecommons.org/publicdomain/mark/1.0/',
 					),
 					'cc0'         => array(
 						'label' => __( 'CC0: No Rights Reserved', 'candela-citation' ),
-						'link'  => 'https://creativecommons.org/about/cc0',
+						'link'  => 'https://creativecommons.org/publicdomain/zero/1.0/',
 					),
 					'cc-by'       => array(
 						'label' => __( 'CC BY: Attribution', 'candela-citation' ),
